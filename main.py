@@ -1,15 +1,21 @@
+#Imports
 import turtle
 import random
 
+#Creation of Screen
 screen = turtle.Screen()
 screen.setup(1920, 1080)
 screen.bgcolor("#6eb6fa")
 screen.tracer(0)
+
+#Adding Assets
 screen.addshape("Spacebattle - Assets/X-Ela.gif")
 screen.addshape("Spacebattle - Assets/Virus.gif")
 screen.addshape("Spacebattle - Assets/Antidote.gif")
 
+#Classes
 class Enemy:
+    #When Enemy object is created turtle object is also created
     def __init__(self):
         self.enemy_turtle = turtle.Turtle()
         self.enemy_turtle.shape("Spacebattle - Assets/Virus.gif")
@@ -17,7 +23,8 @@ class Enemy:
         self.enemy_turtle.hideturtle()
         self.enemy_turtle.goto(random.randint(0, 300), random.randint(-450, 500))
         self.enemy_turtle.showturtle()
-
+    
+    #movement functions
     def move_up(self):
         y = self.enemy_turtle.ycor()
         y += random.randint(1, 2)
@@ -29,9 +36,7 @@ class Enemy:
         self.enemy_turtle.sety(y)
 
 class Ship:
-    def __init__(self, name, pilot):
-        self.name = name
-        self.pilot = pilot
+    def __init__(self):
         self.ship_turtle = turtle.Turtle()
         self.ship_turtle.shape("Spacebattle - Assets/X-Ela.gif")
         self.ship_turtle.penup()
@@ -40,7 +45,8 @@ class Ship:
         self.ship_turtle.goto(-500, 0)
         self.ship_turtle.showturtle()
         self.ship_orientation = "None"
-
+           
+        #turtle for Ship object
         self.lazer_turtle = turtle.Turtle()
         self.lazer_turtle.shape("Spacebattle - Assets/Antidote.gif")
         self.lazer_turtle.penup()
@@ -48,13 +54,15 @@ class Ship:
         self.lazer_turtle.hideturtle()
         self.lazer_turtle.goto(-500, 0)
         self.lazer_state = "Ready"
-
+       
+    #movement functions
     def move_up(self):
         self.ship_orientation = "Up"
 
     def move_down(self):
         self.ship_orientation = "Down"
-
+    
+    #shoot function
     def fire(self):
         print(self.lazer_state)
         if(self.lazer_state == "Ready"):
@@ -64,7 +72,8 @@ class Ship:
             self.lazer_turtle.goto(x, y)
             self.lazer_turtle.showturtle()
 
-alex_ship = Ship("X_Ela", "Alex")
+#ship object
+alex_ship = Ship()
 screen.onkey(alex_ship.move_up, "w")
 screen.onkey(alex_ship.move_down, "s")
 screen.onkey(alex_ship.fire, "space")
@@ -73,8 +82,6 @@ screen.listen()
 score = 0
 enemies = []
 enemy_count = 10
-
-
 
 for i in range(10):
     enemy_ship = Enemy()
